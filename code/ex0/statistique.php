@@ -11,8 +11,6 @@
 
     echo "la moyenne est de ".$total/$nb_notes."/20\n\n"; // "\n" pour un saut de ligne dans la console
     }
-    // moyenne(array("francais"=>15, "maths"=>5, "engene"=>20, "anglais"=>19));
-
 
     function mediane(array $donnees) {
         // trier les données par ordre croissant
@@ -37,6 +35,14 @@
         }
         echo "Voici le tableau trié est : " . implode(", ", $donnees) . " , la médiane est donc " . $milieu . "\n\n";
     }
-    // mediane(array(2004, 2001, 2002, 2002, 2002, 2003, 2005)); // yang jungwon, lee heeseung, park jonseong, sim jaeyun, park sunghoon, kim sunoo, nishimura riki
-    // mediane(array(2004, 2001, 2002, 2002, 2002, 2003, 2005, 2020)); // yang jungwon, lee heeseung, park jonseong, sim jaeyun, park sunghoon, kim sunoo, nishimura riki, en-
+
+    function triangle($nombre) {
+        for ($i = 1; $i <= $nombre; $i++) {
+            $triangle = "";
+            for ($j = 1; $j <= $i; $j++) {
+                $triangle .= "*";
+            }
+            echo $triangle . "\n";
+        }
+    }
 ?>
