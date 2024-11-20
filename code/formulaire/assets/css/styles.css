@@ -18,7 +18,7 @@ body {
     }
     
   .invisible {
-      visibility: hidden !important; /* visible si erreur */
+      visibility: hidden !important; /* "visible" si on veut afficher l'erreur */
   }
   
   .text-danger {
