@@ -15,7 +15,7 @@
                 $tableau[$min] = $temp;
             }
         }
-        echo implode(", ", $tableau);
+        echo implode(", ", $tableau) . "\n\n";
     }
     
     
@@ -36,6 +36,7 @@
             }
         }
         echo implode(", ", $tableau);
+        echo "\n\n";
     }
     
 

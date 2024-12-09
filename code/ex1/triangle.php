@@ -6,6 +6,6 @@
                 $triangle .= "*";
             }
             echo $triangle . "\n";
-        }
+        } echo "\n";
     }
 ?>
