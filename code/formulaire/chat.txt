@@ -1,0 +1,37 @@
+<script>
+    // Fonction de validation avant envoi
+    function verifierFormulaire() {
+        // we not using to id to get the elts
+        var nom = document.getElementById("name").value;
+        var prenom = document.getElementById("prenom").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+
+        // Validation basique (champ non vide)
+        if (nom === "" || prenom === "" || email === "" || password === "") {
+            alert("Tous les champs sont obligatoires !");
+            return false; // Empêcher l'envoi du formulaire
+        }
+
+        // Validation email avec regex
+        var emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+        if (!emailRegex.test(email)) {
+            alert("L'email n'est pas valide !");
+            return false;
+        }
+
+        // Validation mot de passe (longueur minimale par exemple)
+        if (password.length < 6) {
+            alert("Le mot de passe doit comporter au moins 6 caractères.");
+            return false;
+        }
+
+        // Si tout est correct, soumettre le formulaire
+        return true;
+    }
+
+    // Attacher la fonction de validation au formulaire
+    document.getElementById("formulaire").onsubmit = function() {
+        return verifierFormulaire();
+    };
+</script>

@@ -1,17 +1,4 @@
 <?php
-    function moyenne(array $notes) {
-        $nb_notes = 0;  // compteur pour le nombre de notes
-        $total = 0;     // somme des notes
-
-        // boucle pour parcourir le tableau des notes
-        foreach($notes as $matiere => $note) {
-            $nb_notes += 1;
-            $total += $note;
-        }
-
-    echo "la moyenne est de ".$total/$nb_notes."/20\n\n"; // "\n" pour un saut de ligne dans la console
-    }
-
     function mediane(array $donnees) {
         // trier les données par ordre croissant
         sort($donnees);
@@ -34,15 +21,5 @@
             $milieu = $donnees[floor($nb_donnees / 2)];
         }
         echo "Voici le tableau trié est : " . implode(", ", $donnees) . " , la médiane est donc " . $milieu . "\n\n";
-    }
-
-    function triangle($nombre) {
-        for ($i = 1; $i <= $nombre; $i++) {
-            $triangle = "";
-            for ($j = 1; $j <= $i; $j++) {
-                $triangle .= "*";
-            }
-            echo $triangle . "\n";
-        }
     }
 ?>
