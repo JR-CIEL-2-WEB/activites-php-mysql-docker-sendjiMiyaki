@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Server Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <input type="number" id="inputNumber" placeholder="Entrez un entier">
+    <button id="addButton">Ajouter au tableau</button>
+    <button id="sendButton">Envoyer au serveur</button>
+    <div id="result">
+        <h3>Résultat :</h3>
+        <p id="jsonOutput"></p>
+        <p id="medianeValue"></p>
+    </div>
+
+    <script>
+        let tableau = [];
+
+        // Ajouter au tableau
+        document.getElementById("addButton").addEventListener("click", () => {
+            const value = parseInt(document.getElementById("inputNumber").value, 10);
+            if (value > 0) {
+                tableau.push(value);
+                alert(`Valeur ajoutée : ${value}`);
+            } else {
+                alert("Entrez une valeur positive !");
+            }
+        });
+
+        // Envoyer au serveur
+        document.getElementById("sendButton").addEventListener("click", () => {
+            if (tableau.length === 0) {
+                alert("Le tableau est vide !");
+                return;
+            }
+
+            // Utilisation de fetch
+            fetch("https://00e45901-581a-4e4a-b118-000e7a9c451c.mock.pstmn.io", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ tableau })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Afficher le JSON reçu
+                document.getElementById("jsonOutput").textContent = JSON.stringify(data, null, 2);
+
+                // Afficher la valeur de la clé 'mediane'
+                if (data.mediane) {
+                    document.getElementById("medianeValue").textContent = `Valeur médiane : ${data.mediane}`;
+                } else {
+                    document.getElementById("medianeValue").textContent = "Pas de médiane dans la réponse.";
+                }
+            })
+            .catch(error => console.error("Erreur :", error));
+        });
+    </script>
+</body>
+</html>
