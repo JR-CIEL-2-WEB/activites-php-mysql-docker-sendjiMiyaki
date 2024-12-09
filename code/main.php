@@ -11,5 +11,8 @@
 
     // triangle(7)
 
-    $tableau_trie = tri_selection(array(16, 3, 1, 4, 9, 7));
+    //tri_selection_val(array(16, 3, 1, 4, 9, 7));
+
+    $tableau = array(16, 3, 1, 4, 9, 7);
+    tri_selection_ref($tableau);
 ?>
