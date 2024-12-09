@@ -1,5 +1,8 @@
 <?php
-    include "statistique.php";
+    include "ex0/statistique.php";
+    include "ex0/moyenne.php";
+    include "ex1/triangle.php";
+    include "ex4.1/tri_selection.php";
 
     // moyenne(array("francais"=>15, "maths"=>5, "engene"=>20, "anglais"=>19));
 
@@ -8,4 +11,5 @@
 
     // triangle(7)
 
+    $tableau_trie = tri_selection(array(16, 3, 1, 4, 9, 7));
 ?>
