@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Courses</title>
+</head>
+
+<body>
+    <div id="menu_deroulant">
+        <select id="selectionCourse" onchange="loadDoc()">
+            <option value="">Sélectionnez une course</option>
+            <option value="1">Course 1 : Calanques</option>
+            <option value="2">Course 2 : Namsan</option>
+            <option value="3">Course 3 : Table Mountain</option>
+            <option value="4">Course 4 : Mont Parnitha</option>
+        </select>
+    </div>
+
+    <div id="carte">...</div>
+
+    <style type="text/css">
+        /* Toujours définir explicitement la hauteur de la carte pour définir la taille de l'élément div qui contient la carte. */
+        #carte {
+            height: 70%;
+            width: 70%;
+            display: flex;
+            border-radius: 2em;
+            margin: auto;
+        }
+
+        /* Optionnel : fait que la page exemple remplit la fenêtre. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #selectionCourse {
+            padding: 1em;
+            margin: 1em;
+            border-radius: 2em;
+        }
+        #menu_deroulant {
+            display: flex;
+            justify-content: center;
+            margin: 50px 20px 10px 20px;
+        }
+    </style>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Y32T_PJHZxYcK3BJYJFNwSl6cuvLXpo&callback=initMap" defer></script>
+
+    <script>
+        let carte; // déclaration de la variable carte pour qu'elle soit accessible globalement
+    
+        // fonction pour initialiser la carte google maps
+        function initMap() {
+            carte = new google.maps.Map(document.getElementById('carte'), {
+                zoom: 15, // niveau de zoom de la carte
+                center: { lat: 46, lng: 2 } // centrer la carte sur la France
+            });
+        }
+    
+        // fonction pour charger le document avec fetch
+        function loadDoc() {
+            const idCourse = document.getElementById("selectionCourse").value; // Récupérer l'id sélectionné
+
+            // Vérifier si un id est sélectionné
+            if (idCourse) {
+                // Appel à PHP avec fetch
+                fetch("course.php?id=" + idCourse)
+                    .then(reponse => reponse.json()) // Convertir la réponse en JSON
+                    .then(donnees => {
+                        if (donnees.error) {
+                            console.error("Erreur : ", donnees.error); // Gérer les erreurs
+                            document.getElementById('carte').innerHTML = "<p>" + donnees.error + "</p>";
+                        } else {
+                            console.log("Données reçues : ", donnees); // Afficher les données dans la console
+                            afficherCarte(donnees); // Appeler une fonction pour afficher la carte
+                        }
+                    })
+                    .catch(error => console.error("Erreur lors de la requête :", error)); // Gérer les erreurs réseau
+            } else {
+                console.error("Veuillez sélectionner une course."); // Alerte si aucun choix
+            }
+        }
+
+        function afficherCarte(donnees) {
+            let coordonneesMarqueurs = [];
+
+            // Extraire les marqueurs et les ajouter à la carte
+            donnees.markers.forEach(marqueur => {
+                coordonneesMarqueurs.push({ lat: marqueur.lat, lng: marqueur.lng });
+                new google.maps.Marker({
+                    position: { lat: marqueur.lat, lng: marqueur.lng },
+                    map: carte
+                });
+            });
+
+            // Ajuster la carte avec les marqueurs
+            if (coordonneesMarqueurs.length > 0) {
+                carte.setCenter(coordonneesMarqueurs[0]);
+            }
+
+            // Tracer la polyline
+            const polyline = new google.maps.Polyline({
+                path: coordonneesMarqueurs,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1,
+                strokeWeight: 2
+            });
+            polyline.setMap(carte);
+        }
+    </script>
+    
+
+</body>
+
+</html>

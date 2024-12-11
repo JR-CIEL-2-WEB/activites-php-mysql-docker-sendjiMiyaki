@@ -7,7 +7,7 @@ let message = document.querySelector('[placeholder="Message"]');  // champ pour 
 
 // Définir des expressions régulières pour vérifier des critères spécifiques
 let maj = /[A-Z]/; // vérifie la présence de lettres majuscules
-let special = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/; // vérifie la présence de caractères spéciaux
+let special = /[=!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/; // vérifie la présence de caractères spéciaux
 
 // Sélectionner la case à cocher et le texte d'erreur
 let cocher = document.getElementById('formCheck-1');  // case à cocher
@@ -73,4 +73,29 @@ function verifierFormulaire() {
     }
 
     return isValid;  // retourne vrai si le formulaire est valide, sinon faux
+}
+
+
+function verifierUtilisateur() {
+  fetch('../data.json')
+    .then(response => response.json())
+    .then(data => {
+        // Utilisez les données pour comparer les informations saisies
+        // Par exemple, ici on suppose que 'data' contient un tableau d'utilisateurs
+        const utilisateur = data.find(u => u.email === emailSaisi);
+        if (utilisateur) {
+            // Vérification du mot de passe
+            if (motDePasseSaisi === utilisateur.password) {
+                alert("Les informations sont correctes.");
+            } else {
+                alert("Mot de passe incorrect.");
+            }
+        } else {
+            alert("Utilisateur non trouvé.");
+        }
+    })
+    .catch(error => {
+        console.error("Erreur lors du chargement des données utilisateur:", error);
+    });
+
 }

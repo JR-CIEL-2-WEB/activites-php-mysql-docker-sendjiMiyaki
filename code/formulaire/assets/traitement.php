@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // on sauvegarde les données dans le fichier "data.json"
     if (file_put_contents($dataFile, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))) {
-        echo json_encode(["status" => "success", "message" => "Compte créé avec succès !"]);  // si l'enregistrement réussit, on affiche un message de succès
+        echo json_encode(["status" => "success", "message" => "Compte cree avec succes !"]);  // si l'enregistrement réussit, on affiche un message de succès
     } else {
         echo json_encode(["status" => "error", "message" => "Erreur lors de l'enregistrement des données."]);  // si l'enregistrement échoue, on affiche une erreur
     }
